@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="../index.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ оформлен - Кофейня</title>
+</head>
+<body>
+    <canvas id="smoke-canvas"></canvas>
+
+    <header>
+        <div class="menu">
+            <h1><a href="index.html" style="text-decoration:none; color:inherit;">Кофейня</a></h1>
+            <nav class="links">
+                <a href="index.html">Главная</a>
+                <a href="menu.html">Меню / Заказ</a>
+                <a href="reviews.html">Отзывы</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div style="max-width: 600px; margin: 60px auto; background: var(--white); padding: 40px; border-radius: 22px; border: 1px solid var(--grey-light); box-shadow: 0 8px 28px rgba(0, 0, 0, 0.04); text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">☕</div>
+            <h2 style="color: var(--text-main); margin-top: 0;">Спасибо за заказ!</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Мы уже начали его готовить.</p>
+
+            <div id="order-details" style="text-align: left; background: var(--bg-main); padding: 20px; border-radius: 15px;">
+                <!-- Сюда JS вставит детали заказа -->
+            </div>
+
+            <a href="index.html" style="display: inline-block; margin-top: 30px; background: var(--accent); color: white; padding: 12px 25px; text-decoration: none; border-radius: 10px; font-weight: bold;">На главную</a>
+        </div>
+    </main>
+
+    <script src="../index.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const orderData = JSON.parse(localStorage.getItem('coffeeOrder'));
+            const detailsContainer = document.getElementById('order-details');
+
+            if (!orderData) {
+                detailsContainer.innerHTML = '<p style="text-align:center; color:var(--text-muted);">Информация о заказе не найдена.</p>';
+                return;
+            }
+
+            let itemsHtml = orderData.items.map(item => 
+                `<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span>${item.title} x${item.quantity}</span>
+                    <span>${item.price * item.quantity} ₽</span>
+                </div>`
+            ).join('');
+
+            let deliveryHtml = orderData.deliveryType === 'pickup' 
+                ? '<p style="margin: 10px 0 0 0;"><strong>Самовывоз:</strong> Долотный переулок 11</p>'
+                : `<p style="margin: 10px 0 0 0;"><strong>Доставка:</strong> ${orderData.address}</p>
+                   <p style="margin: 5px 0 0 0; color: var(--text-muted);">Стоимость доставки: ${orderData.deliveryCost} ₽</p>`;
+
+            detailsContainer.innerHTML = `
+                <h3 style="margin-top: 0; border-bottom: 1px solid var(--grey-mid); padding-bottom: 10px;">Состав заказа</h3>
+                ${itemsHtml}
+                <div style="display:flex; justify-content:space-between; font-weight:bold; margin-top:10px; border-top: 1px dashed var(--grey-mid); padding-top:10px;">
+                    <span>Товары:</span>
+                    <span>${orderData.itemsTotal} ₽</span>
+                </div>
+                <div style="margin-top: 15px; border-top: 1px solid var(--grey-mid); padding-top: 15px;">
+                    ${deliveryHtml}
+                </div>
+                <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.3rem; margin-top:15px; color:var(--accent);">
+                    <span>Итого:</span>
+                    <span>${orderData.grandTotal} ₽</span>
+                </div>
+            `;
+
+            // Очищаем данные после отображения
+            localStorage.removeItem('coffeeOrder');
+        });
+    </script>
+</body>
+</html>

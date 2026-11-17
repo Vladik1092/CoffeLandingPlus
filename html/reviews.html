@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="../index.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кофейня - Отзывы</title>
+</head>
+<body>
+    <canvas id="smoke-canvas"></canvas>
+
+    <header>
+        <div class="menu">
+            <h1><a href="index.html" style="text-decoration:none; color:inherit;">Кофейня</a></h1>
+            <button class="burger" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="links">
+                <a href="index.html">Главная</a>
+                <a href="menu.html">Меню</a>
+                <a href="reviews.html">Отзывы</a>
+                <a href="index.html#contacts">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="page-title">Отзывы наших гостей</h2>
+        
+        <!-- Форма для нового отзыва -->
+        <div class="review-form-container">
+    <h3>Оставить отзыв</h3>
+    <form id="review-form">
+        <input type="text" id="review-name" placeholder="Ваше имя" required>
+        
+        <!-- Блок с оценкой -->
+        <div class="rating-input" title="Выберите оценку">
+            <input type="radio" id="star5" name="rating" value="5" checked />
+            <label for="star5" title="5 звезд">★</label>
+            
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4" title="4 звезды">★</label>
+            
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3" title="3 звезды">★</label>
+            
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2" title="2 звезды">★</label>
+            
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1" title="1 звезда">★</label>
+        </div>
+
+        <textarea id="review-text" placeholder="Поделитесь впечатлениями..." rows="4" required></textarea>
+        <button type="submit" class="submit-review-btn">Отправить</button>
+    </form>
+</div>
+
+        <div class="reviews-grid" id="reviews-container">
+            <!-- Существующие отзывы -->
+            <div class="review-card">
+                <div class="box">
+                    <p>Единственная кофейня на 116 км, где самый вкусный кофе в районе — возможно, даже лучше, чем во многих кофейнях Самары! Дети в восторге от мохито и молочного коктейля — свежие и очень вкусные напитки. Спасибо за отличное качество и уютную атмосферу! Желаем вам процветания, побольше гостей и всегда оставаться на такой же высокой волне! Обязательно вернёмся снова! ☕✨</p>
+                </div>
+                <div class="user">
+                    <div class="icon">Е</div>
+                    <p>Ekaterina</p>
+                    <p class="estimate">5/5</p>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="box">
+                    <p>Уютное, приветливое и вкусное кафе</p>
+                </div>
+                <div class="user">
+                    <div class="icon">М</div>
+                    <p>Мария.</p>
+                    <p class="estimate">5/5</p>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="box">
+                    <p>По возможности заглядываю сюда и частенько беру айс-латте с кокосовым сиропом (его очень вкусно делают) и сэндвич с рыбкой, он вообще отпадный 🥹🫶🏻 Место само по себе очень уютное и миленькое, + рядом с домом🦭 Короче, 10 из 10 ⭐️✨💫</p>
+                </div>
+                <div class="user">
+                    <div class="icon">А</div>
+                    <p>Анастасия</p>
+                    <p class="estimate">5/5</p>
+                </div>
+            </div>
+            
+            <div class="review-card">
+                <div class="box">
+                    <p>Отличное место! Часто забегаю сюда за американо. Бариста всегда приветливые, а аромат кофе чувствуется еще на подходе.</p>
+                </div>
+                <div class="user">
+                    <div class="icon">Д</div>
+                    <p>Дмитрий</p>
+                    <p class="estimate">5/5</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Виджет корзины (без изменений) -->
+    <div class="cart-widget" onclick="toggleCart()">
+        🛒 Корзина
+        <span class="cart-count">0</span>
+    </div>
+
+<div class="cart-modal" id="cart-modal">
+            <div class="cart-content">
+            <h2 style="margin-top: 0; color: var(--text-main); flex-shrink: 0;">Ваш заказ</h2>
+            
+            <!-- Скроллируемая область -->
+            <div class="cart-scroll-area">
+                <div id="cart-items"></div>
+                
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1rem; margin-top: 15px; border-top: 1px solid var(--grey-light); padding-top: 15px;">
+                    <span>Сумма:</span>
+                    <span><span id="cart-total">0</span> ₽</span>
+                </div>
+
+                <!-- Блок выбора способа получения -->
+                <div id="delivery-options" style="display: none; margin-top: 20px; background: var(--bg-main); padding: 15px; border-radius: 10px;">
+                    <p style="font-weight: 600; margin: 0 0 10px;">Способ получения:</p>
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px; cursor: pointer;">
+                        <input type="radio" name="delivery" value="pickup" checked>
+                        Я сам заберу (бесплатно)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px; cursor: pointer;">
+                        <input type="radio" name="delivery" value="delivery">
+                        Доставка (+500 ₽ за км)
+                    </label>
+                    
+                    <!-- Блок для карты и адреса -->
+                    <div id="map-wrapper" style="display: none; margin-top: 15px; position: relative;">
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">
+                            Введите адрес (расстояние посчитается автоматически):
+                        </p>
+                        
+                        <div style="width: 100%; height: 180px; border-radius: 10px; overflow: hidden; border: 1px solid var(--grey-mid); margin-bottom: 10px;">
+                            <iframe 
+                                src="https://yandex.ru/map-widget/v1/?ll=50.083886%2C53.120302&z=13" 
+                                width="100%" 
+                                height="100%" 
+                                frameborder="0"
+                                allowfullscreen="true">
+                            </iframe>
+                        </div>
+                        
+                        <input type="text" id="delivery-address" placeholder="Улица, дом, квартира" style="width: 100%; padding: 10px; border: 1px solid var(--grey-mid); border-radius: 8px; font-family: inherit;">
+                        
+                        <div id="delivery-info" style="margin-top: 10px; font-size: 0.9rem; background: var(--white); padding: 10px; border-radius: 8px; border: 1px solid var(--grey-light); color: var(--text-main);">
+                            Введите адрес для расчета стоимости доставки
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Конец скроллируемой области -->
+
+            <!-- Кнопки всегда внизу -->
+            <div style="flex-shrink: 0;">
+                <button class="checkout-btn" onclick="checkout()" style="margin-top: 0;">Оформить заказ</button>
+                <button style="width: 100%; margin-top: 10px; padding: 10px; background: none; border: none; cursor: pointer; color: var(--text-muted);" onclick="toggleCart()">Закрыть</button>
+            </div>
+        </div>
+</div>
+
+    <script src="../index.js"></script>
+<script>
+    // Логика добавления отзыва
+    document.getElementById('review-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('review-name').value.trim();
+        const text = document.getElementById('review-text').value.trim();
+        
+        // Получаем выбранную оценку (по умолчанию стоит 5)
+        const ratingElement = document.querySelector('input[name="rating"]:checked');
+        const rating = ratingElement ? ratingElement.value : '5';
+
+        if (!name || !text) return;
+
+        const container = document.getElementById('reviews-container');
+        const newCard = document.createElement('div');
+        newCard.className = 'review-card';
+        newCard.innerHTML = `
+            <div class="box">
+                <p>${text}</p>
+            </div>
+            <div class="user">
+                <div class="icon">${name.charAt(0).toUpperCase()}</div>
+                <p>${name}</p>
+                <p class="estimate">${rating}/5</p>
+            </div>
+        `;
+        
+        // Добавляем новый отзыв в начало списка
+        container.prepend(newCard);
+        
+        // Очищаем форму и возвращаем оценку на 5
+        this.reset();
+    });
+</script>
+</body>
+</html>

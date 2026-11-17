@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="../index.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кофейня - Меню</title>
+</head>
+<body>
+    <canvas id="smoke-canvas"></canvas>
+
+    <header>
+        <div class="menu">
+            <h1><a href="index.html" style="text-decoration:none; color:inherit;">Кофейня</a></h1>
+            <button class="burger" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="links">
+                <a href="index.html">Главная</a>
+                <a href="menu.html">Меню</a>
+                <a href="reviews.html">Отзывы</a>
+                <a href="index.html#contacts">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="page-title">Наше меню</h2>
+        
+        <div class="menu-grid">
+            <!-- Напитки -->
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ7B7ET3KkdJ5CKGnPuU3iGEAwylUoXov_t5f9iIvr4EE_xZNQJtcZ2Gk&s=10" alt="Капучино" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Капучино</h3>
+                    <p class="product-desc">Классический кофе с плотной молочной пенкой.</p>
+                    <div class="product-bottom">
+                        <span class="product-price">180 ₽</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Капучино', 180)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://ingresso.coffee/wp-content/uploads/2025/09/Latte-art-dlya-barista.jpg" alt="Латте" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Латте</h3>
+                    <p class="product-desc">Нежный кофейный напиток с молоком.</p>
+                    <div class="product-bottom">
+                        <span class="product-price">200 ₽</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Латте', 200)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT48urWBtiXFNw5DxyNuoC7luUcLXRLKbwCDNf6VS1G2u4T51HnsGQpIZzM&s=10" alt="Какао" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Какао</h3>
+                    <p class="product-desc">Согревающий шоколадный напиток.</p>
+                    <div class="product-bottom">
+                        <span class="product-price">150 ₽</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Какао', 150)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Выпечка и десерты -->
+            <div class="product-card">
+                <img src="https://cheese-cake.ru/DesertImg/vaflya-venskaya-1.jpg" alt="Венская вафля" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Венская вафля</h3>
+                    <p class="product-desc">Хрустящая вафля с начинкой на выбор.</p>
+                    <div class="product-bottom">
+                        <span class="product-price">220 ₽</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Венская вафля', 220)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXRaokX7Jq_bY4VRrur7ViDC9u3NaFinR9Xvv8-oRFmiuJ1WyUUPBCYjc&s=10" alt="Сэндвич" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Сэндвич</h3>
+                    <p class="product-desc">Свежий сэндвич, готовится при вас.</p>
+                    <div class="product-bottom">
+                        <span class="product-price">190 ₽</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Сэндвич', 190)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS1OI3JzhaaoxVc2uRHPB5ZigFXczeOJcaTpjhOl2IPigscKBz8ITl1oQ&s=10" alt="Пирожное" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Пирожное</h3>
+                    <p class="product-desc">Нежный десерт к кофе.</p>
+                    <div class="product-bottom">
+                        <span class="product-price">160 ₽</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Пирожное', 160)">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Виджет корзины (без изменений) -->
+    <div class="cart-widget" onclick="toggleCart()">
+        🛒 Корзина
+        <span class="cart-count">0</span>
+    </div>
+
+    <!-- Модальное окно корзины (без изменений) -->
+<div class="cart-modal" id="cart-modal">
+            <div class="cart-content">
+            <h2 style="margin-top: 0; color: var(--text-main); flex-shrink: 0;">Ваш заказ</h2>
+            
+            <!-- Скроллируемая область -->
+            <div class="cart-scroll-area">
+                <div id="cart-items"></div>
+                
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1rem; margin-top: 15px; border-top: 1px solid var(--grey-light); padding-top: 15px;">
+                    <span>Сумма:</span>
+                    <span><span id="cart-total">0</span> ₽</span>
+                </div>
+
+                <!-- Блок выбора способа получения -->
+                <div id="delivery-options" style="display: none; margin-top: 20px; background: var(--bg-main); padding: 15px; border-radius: 10px;">
+                    <p style="font-weight: 600; margin: 0 0 10px;">Способ получения:</p>
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px; cursor: pointer;">
+                        <input type="radio" name="delivery" value="pickup" checked>
+                        Я сам заберу (бесплатно)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px; cursor: pointer;">
+                        <input type="radio" name="delivery" value="delivery">
+                        Доставка (+500 ₽ за км)
+                    </label>
+                    
+                    <!-- Блок для карты и адреса -->
+                    <div id="map-wrapper" style="display: none; margin-top: 15px; position: relative;">
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">
+                            Введите адрес (расстояние посчитается автоматически):
+                        </p>
+                        
+                        <div style="width: 100%; height: 180px; border-radius: 10px; overflow: hidden; border: 1px solid var(--grey-mid); margin-bottom: 10px;">
+                            <iframe 
+                                src="https://yandex.ru/map-widget/v1/?ll=50.083886%2C53.120302&z=13" 
+                                width="100%" 
+                                height="100%" 
+                                frameborder="0"
+                                allowfullscreen="true">
+                            </iframe>
+                        </div>
+                        
+                        <input type="text" id="delivery-address" placeholder="Улица, дом, квартира" style="width: 100%; padding: 10px; border: 1px solid var(--grey-mid); border-radius: 8px; font-family: inherit;">
+                        
+                        <div id="delivery-info" style="margin-top: 10px; font-size: 0.9rem; background: var(--white); padding: 10px; border-radius: 8px; border: 1px solid var(--grey-light); color: var(--text-main);">
+                            Введите адрес для расчета стоимости доставки
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <div style="flex-shrink: 0;">
+                <button class="checkout-btn" onclick="checkout()" style="margin-top: 0;">Оформить заказ</button>
+                <button style="width: 100%; margin-top: 10px; padding: 10px; background: none; border: none; cursor: pointer; color: var(--text-muted);" onclick="toggleCart()">Закрыть</button>
+            </div>
+        </div>
+</div>
+
+    <script src="../index.js"></script>
+</body>
+</html>
